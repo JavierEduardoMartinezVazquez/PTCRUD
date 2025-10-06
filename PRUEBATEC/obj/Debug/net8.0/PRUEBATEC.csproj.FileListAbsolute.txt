@@ -176,3 +176,4 @@ C:\Users\rafae\source\repos\PRUEBATEC\PRUEBATEC\obj\Debug\net8.0\PRUEBATEC.genru
 C:\Users\rafae\source\repos\PRUEBATEC\PRUEBATEC\obj\Debug\net8.0\ref\PRUEBATEC.dll
 C:\Users\rafae\source\repos\PRUEBATEC\PRUEBATEC\bin\Debug\net8.0\package-lock.json
 C:\Users\rafae\source\repos\PRUEBATEC\PRUEBATEC\bin\Debug\net8.0\package.json
+C:\Users\rafae\source\repos\PRUEBATEC\PRUEBATEC\obj\Debug\net8.0\PRUEBATEC.sourcelink.json

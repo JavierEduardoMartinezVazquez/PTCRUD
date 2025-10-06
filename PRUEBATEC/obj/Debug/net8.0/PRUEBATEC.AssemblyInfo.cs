@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PRUEBATEC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7a7cf6836e5f8561e246f40306bcca022a25d6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PRUEBATEC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PRUEBATEC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
