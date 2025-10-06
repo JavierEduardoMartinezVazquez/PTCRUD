@@ -1,0 +1,97 @@
+[
+  {
+    "ContainingType": "PRUEBATEC.Controllers.ProductosApiController",
+    "Method": "GetAll",
+    "RelativePath": "api/ProductosApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busqueda",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pagina",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "registros",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRUEBATEC.Controllers.ProductosApiController",
+    "Method": "Create",
+    "RelativePath": "api/ProductosApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "producto",
+        "Type": "PRUEBATEC.Models.ProductoModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRUEBATEC.Controllers.ProductosApiController",
+    "Method": "GetById",
+    "RelativePath": "api/ProductosApi/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRUEBATEC.Controllers.ProductosApiController",
+    "Method": "Update",
+    "RelativePath": "api/ProductosApi/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "producto",
+        "Type": "PRUEBATEC.Models.ProductoModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRUEBATEC.Controllers.ProductosApiController",
+    "Method": "Delete",
+    "RelativePath": "api/ProductosApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

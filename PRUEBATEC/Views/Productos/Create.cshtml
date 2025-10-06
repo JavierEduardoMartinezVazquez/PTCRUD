@@ -1,0 +1,42 @@
+﻿@model PRUEBATEC.Models.ProductoModel
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="NombreP"></label>
+        <input asp-for="NombreP" class="form-control" />
+        <span asp-validation-for="NombreP" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SKU"></label>
+        <input asp-for="SKU" class="form-control" />
+        <span asp-validation-for="SKU" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cantidad"></label>
+        <input asp-for="Cantidad" class="form-control" type="number" />
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrecioV"></label>
+        <input asp-for="PrecioV" class="form-control" type="number" step="0.0001" />
+        <span asp-validation-for="PrecioV" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrecioC"></label>
+        <input asp-for="PrecioC" class="form-control" type="number" step="0.0001" />
+        <span asp-validation-for="PrecioC" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

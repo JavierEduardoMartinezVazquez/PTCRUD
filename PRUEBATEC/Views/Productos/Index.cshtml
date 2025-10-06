@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PRUEBATEC.Models.ProductoModel> 
+@{ 
+    ViewData["Title"] = "Lista de Productos"; 
+    var paginaActual = ViewBag.PaginaActual ?? 1; 
+    var totalPaginas = ViewBag.TotalPaginas ?? 1; 
+    var busqueda = ViewBag.Busqueda ?? ""; 
+} 
+
+<h2>@ViewData["Title"]</h2> 
+
+<form method="get" class="form-inline mb-3"> 
+    <input type="text" name="busqueda" value="@busqueda" class="form-control" placeholder="Buscar..." /> 
+    <button type="submit" class="btn btn-primary">Buscar</button> 
+</form> 
+
+<p> 
+    <a class="btn btn-success" asp-action="Create">Nuevo Producto</a> 
+</p> 
+
+<table class="table table-bordered"> 
+    <thead> 
+        <tr> 
+            <th> 
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NombreSortParam"]" asp-route-busqueda="@ViewBag.Busqueda"> 
+                    Nombre 
+                </a> 
+            </th> 
+            <th>SKU</th> 
+            <th>Cantidad</th> 
+            <th> 
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecioVSortParam"]" asp-route-busqueda="@ViewBag.Busqueda"> 
+                    Precio Venta 
+                </a> 
+            </th> 
+            <th> 
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecioCSortParam"]" asp-route-busqueda="@ViewBag.Busqueda"> 
+                    Precio Costo 
+                </a> 
+            </th> 
+            <th>Ultima Modificación</th> 
+            <th>Acciones</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        @foreach (var item in Model) 
+        { 
+            <tr> 
+                <td>@item.NombreP</td> 
+                <td>@item.SKU</td> 
+                <td>@item.Cantidad</td> 
+                <td>@item.PrecioC.ToString("C2")</td> 
+                <td>@item.PrecioV.ToString("C2")</td> 
+                <td>@item.FechaModificacion</td> 
+                <td> 
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> 
+                </td> 
+            </tr> 
+        } 
+    </tbody> 
+</table> 
+
+<nav> 
+    <ul class="pagination"> 
+        @for (int i = 1; i <= totalPaginas; i++) 
+        { 
+            <li class="page-item @(i == paginaActual ? "active" : "")"> 
+                <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-busqueda="@busqueda">@i</a> 
+            </li> 
+        } 
+    </ul> 
+</nav>

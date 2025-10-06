@@ -1,0 +1,17 @@
+{
+  "name": "pruebatec",
+  "version": "1.0.0",
+  "description": "-PRUEBATEC es una aplicación web para gestionar un almacén de productos. -Permite realizar operaciones CRUD (Crear, Leer, Editar, Eliminar) sobre productos, con validaciones, paginación y seguridad básica.",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.14"
+  }
+}
