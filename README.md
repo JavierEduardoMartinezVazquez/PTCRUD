@@ -8,8 +8,10 @@
 -Backend: ASP.NET Core 8 MVC / Razor Pages
 -ORM: Entity Framework Core
 -Base de datos: SQL Server
--Frontend: Razor Views + HTML5 + Tailwind CSS
+-Frontend: Razor Views + HTML5 + CSS
 -Documentación de API: Swagger
+-Sweet Alert
+-JS
 
 #Estructura del proyecto
 PRUEBATEC/
@@ -39,7 +41,7 @@ PRUEBATEC/
 
 Requisitos
 
--.NET 8 SDK o superior
+-.NET 8 SDK
 -SQL Server
 -Visual Studio 2022
 
