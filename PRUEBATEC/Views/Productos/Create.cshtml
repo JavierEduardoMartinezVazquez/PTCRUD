@@ -4,39 +4,81 @@
     ViewData["Title"] = "Crear Producto";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2 class="mb-4">@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="NombreP"></label>
+<form asp-action="Create" method="post" id="formCreate">
+    <div class="form-group mb-3">
+        <label asp-for="NombreP" class="form-label"></label>
         <input asp-for="NombreP" class="form-control" />
         <span asp-validation-for="NombreP" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="SKU"></label>
+
+    <div class="form-group mb-3">
+        <label asp-for="SKU" class="form-label"></label>
         <input asp-for="SKU" class="form-control" />
         <span asp-validation-for="SKU" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Cantidad"></label>
-        <input asp-for="Cantidad" class="form-control" type="number" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Cantidad" class="form-label"></label>
+        <input asp-for="Cantidad" class="form-control" type="number" min="0" />
         <span asp-validation-for="Cantidad" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PrecioV"></label>
-        <input asp-for="PrecioV" class="form-control" type="number" step="0.0001" />
+
+    <div class="form-group mb-3">
+        <label asp-for="PrecioV" class="form-label"></label>
+        <input asp-for="PrecioV" class="form-control" type="number" step="0.0001" min="0" />
         <span asp-validation-for="PrecioV" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PrecioC"></label>
-        <input asp-for="PrecioC" class="form-control" type="number" step="0.0001" />
+
+    <div class="form-group mb-4">
+        <label asp-for="PrecioC" class="form-label"></label>
+        <input asp-for="PrecioC" class="form-control" type="number" step="0.0001" min="0" />
         <span asp-validation-for="PrecioC" class="text-danger"></span>
     </div>
-    <br />
-    <button type="submit" class="btn btn-success">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var alerta = '@TempData["Alerta"]';
+            var tipoAlerta = '@TempData["TipoAlerta"]';
+
+            if (alerta && tipoAlerta) {
+                Swal.fire({
+                    icon: tipoAlerta === 'success' ? 'success' : 'error',
+                    title: tipoAlerta === 'success' ? 'Éxito' : 'Error',
+                    text: alerta,
+                    confirmButtonColor: tipoAlerta === 'success' ? '#3085d6' : '#d33'
+                });
+            }
+
+            const form = document.getElementById("formCreate");
+            form.addEventListener("submit", function (e) {
+                e.preventDefault(); 
+
+                Swal.fire({
+                    title: '¿Guardar producto?',
+                    text: "Confirma que deseas crear este producto.",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, guardar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 }
