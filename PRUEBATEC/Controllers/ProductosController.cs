@@ -18,42 +18,13 @@ namespace PRUEBATEC.Controllers
             _repository = repository;
         }
 
-        // LISTA DE PRODUCTOS
-        public async Task<IActionResult> Index(string busqueda, string sortOrder, int pagina = 1)
+        // LISTA DE PRODUCTOS - CARGA TODA LA LISTA PARA CLIENTE
+        public async Task<IActionResult> Index()
         {
             try
             {
-                int registrosPorPagina = 5;
-
-                ViewData["NombreSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nombre_desc" : "";
-                ViewData["PrecioVSortParam"] = sortOrder == "PrecioV" ? "precioV_desc" : "PrecioV";
-                ViewData["PrecioCSortParam"] = sortOrder == "PrecioC" ? "precioC_desc" : "PrecioC";
-
-                var productos = await _repository.ObtenerPaginadoAsync(busqueda, pagina, registrosPorPagina);
-
-                // Ordenamiento
-                productos = sortOrder switch
-                {
-                    "nombre_desc" => productos.OrderByDescending(p => p.NombreP),
-                    "PrecioV" => productos.OrderBy(p => p.PrecioV),
-                    "precioV_desc" => productos.OrderByDescending(p => p.PrecioV),
-                    "PrecioC" => productos.OrderBy(p => p.PrecioC),
-                    "precioC_desc" => productos.OrderByDescending(p => p.PrecioC),
-                    _ => productos.OrderBy(p => p.NombreP),
-                };
-
-                var totalRegistros = productos.Count();
-                var productosPaginados = productos
-                    .Skip((pagina - 1) * registrosPorPagina)
-                    .Take(registrosPorPagina)
-                    .ToList();
-
-                ViewBag.Busqueda = busqueda;
-                ViewBag.PaginaActual = pagina;
-                ViewBag.TotalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
-                ViewBag.SortOrder = sortOrder;
-
-                return View(productosPaginados);
+                var productos = await _repository.ObtenerTodosAsync();
+                return View(productos);
             }
             catch (Exception ex)
             {
@@ -63,11 +34,8 @@ namespace PRUEBATEC.Controllers
             }
         }
 
-        //CREAR PRODUCTO
-        public IActionResult Create()
-        {
-            return View();
-        }
+        // CREAR PRODUCTO
+        public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,7 +63,7 @@ namespace PRUEBATEC.Controllers
             }
         }
 
-        //EDITAR PRODUCTO
+        // EDITAR PRODUCTO
         public async Task<IActionResult> Edit(int id)
         {
             var producto = await _repository.ObtenerPorIdAsync(id);

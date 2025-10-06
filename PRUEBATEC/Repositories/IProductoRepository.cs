@@ -12,5 +12,6 @@ namespace PRUEBATEC.Repositories
         Task CrearAsync(ProductoModel producto);
         Task ActualizarAsync(ProductoModel producto);
         Task EliminarAsync(int id);
+        Task<IEnumerable<ProductoModel>> ObtenerTodosAsync();
     }
 }

@@ -66,5 +66,13 @@ namespace PRUEBATEC.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        // Nuevo método: traer todos los productos
+        public async Task<IEnumerable<ProductoModel>> ObtenerTodosAsync()
+        {
+            return await _context.Productos
+                                 .OrderBy(p => p.NombreP)
+                                 .ToListAsync();
+        }
     }
 }

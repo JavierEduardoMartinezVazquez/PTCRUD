@@ -1,47 +1,35 @@
 ﻿@model IEnumerable<PRUEBATEC.Models.ProductoModel>
 @{
     ViewData["Title"] = "Lista de Productos";
-    var paginaActual = ViewBag.PaginaActual ?? 1;
-    var totalPaginas = ViewBag.TotalPaginas ?? 1;
-    var busqueda = ViewBag.Busqueda ?? "";
 }
 
 <h2 class="mb-3">@ViewData["Title"]</h2>
 
-<form method="get" class="form-inline mb-3">
-    <input type="text" name="busqueda" value="@busqueda" class="form-control" placeholder="Buscar..." />
-    <button type="submit" class="btn btn-primary">Buscar</button>
-</form>
+<div class="mb-3">
+    <input type="text" id="busqueda" class="form-control" placeholder="Buscar..." />
+</div>
 
 <p>
     <a class="btn btn-success" asp-action="Create">Nuevo Producto</a>
 </p>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NombreSortParam"]" asp-route-busqueda="@busqueda">
-                    Nombre
-                </a>
-            </th>
-            <th>SKU</th>
-            <th>Cantidad</th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecioVSortParam"]" asp-route-busqueda="@busqueda">
-                    Precio Venta
-                </a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecioCSortParam"]" asp-route-busqueda="@busqueda">
-                    Precio Costo
-                </a>
-            </th>
-            <th>Última Modificación</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
+<table class="table table-bordered" id="tablaProductos">
+    <th class="sortable" data-column="NombreP">
+        Nombre <span class="sort-icon"> ↕</span>
+    </th>
+    <th>SKU</th>
+    <th>Cantidad</th>
+    <th class="sortable" data-column="PrecioV">
+        Precio Venta <span class="sort-icon"> ↕</span>
+    </th>
+    <th class="sortable" data-column="PrecioC">
+        Precio Costo <span class="sort-icon"> ↕</span>
+    </th>
+    <th>Última Modificación</th>
+    <th>Acciones</th>
+
+
+    <tbody id="tbodyProductos">
         @foreach (var item in Model)
         {
             <tr>
@@ -60,68 +48,15 @@
     </tbody>
 </table>
 
-<nav>
-    <ul class="pagination">
-        @for (int i = 1; i <= totalPaginas; i++)
-        {
-            <li class="page-item @(i == paginaActual ? "active" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-busqueda="@busqueda">@i</a>
-            </li>
-        }
-    </ul>
-</nav>
-
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Mostrar alertas del controlador
-            var alerta = '@TempData["Alerta"]';
-            var tipoAlerta = '@TempData["TipoAlerta"]';
-
-            if (alerta && tipoAlerta) {
-                Swal.fire({
-                    icon: tipoAlerta === 'success' ? 'success' : 'error',
-                    title: tipoAlerta === 'success' ? 'Éxito' : 'Error',
-                    text: alerta,
-                    confirmButtonColor: tipoAlerta === 'success' ? '#3085d6' : '#d33'
-                });
-            }
-
-            // Confirmación de eliminación
-            const botonesEliminar = document.querySelectorAll(".btnEliminar");
-            botonesEliminar.forEach(btn => {
-                btn.addEventListener("click", function () {
-                    var id = this.dataset.id;
-
-                    Swal.fire({
-                        title: '¿Eliminar producto?',
-                        text: "Esta acción no se puede deshacer.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, eliminar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Crear un formulario dinámico para enviar POST
-                            const form = document.createElement('form');
-                            form.method = 'post';
-                            form.action = '@Url.Action("DeleteConfirmed", "Productos")/' + id;
-
-                            // Anti-forgery token
-                            const token = document.createElement('input');
-                            token.type = 'hidden';
-                            token.name = '__RequestVerificationToken';
-                            token.value = $('input[name="__RequestVerificationToken"]').val();
-                            form.appendChild(token);
-
-                            document.body.appendChild(form);
-                            form.submit();
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-}
+<div class="d-flex justify-content-center mt-3">
+    <nav>
+        <ul class="pagination" id="paginacion"></ul>
+    </nav>
+</div>
+<script>
+    var productosData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+    var alerta = '@TempData["Alerta"]';
+    var tipoAlerta = '@TempData["TipoAlerta"]';
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/productos.js"></script>
